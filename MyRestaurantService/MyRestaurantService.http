@@ -1,0 +1,25 @@
+﻿@MyRestaurantService_HostAddress = https://localhost:7069
+
+Get {{MyRestaurantService_HostAddress}}/api/Contact/
+
+###
+
+Post {{MyRestaurantService_HostAddress}}/api/MenuItem/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "All-beef hotdog and soda",
+  "price": 1.50,
+  "description": "An all-beef hotdog and soda with a permanent fixed price.",
+  "category": 1
+}
+###
+
+Get {{MyRestaurantService_HostAddress}}/api/MenuItem/
+
+###
+
+Get {{MyRestaurantService_HostAddress}}/api/MenuItem/
+
+###

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MauiStockApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiStockApp"
+    xmlns:pages="clr-namespace:MauiStockApp.Views"
+    Shell.FlyoutBehavior="Flyout">
+
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="0.2*,0.8*">
+                <Image Source="{Binding Icon}"
+                       Margin="35,0,0,0"
+                       HeightRequest="45" />
+                <Label Grid.Column="1"
+                       Text="{Binding Text}"
+                       Margin="10,0,0,0"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+
+
+    <Shell.FlyoutHeader>
+        <Grid RowDefinitions="*,*"
+              Padding="20">
+            <Image Source="surfshack_logo.jpeg"
+                   WidthRequest="100"
+                   HeightRequest="100"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+                <Image.Clip>
+                    <EllipseGeometry Center="50,50"
+                                     RadiusX="50"
+                                     RadiusY="50"/>
+                </Image.Clip>
+            </Image>
+            <Label Grid.Row="1"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Text="MauiStockTake"/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+
+    <TabBar>
+        <Tab Title="Input"
+             Icon="icon_input.svg"
+             Route="input">
+            <ShellContent ContentTemplate="{DataTemplate pages:InputPage}" />
+        </Tab>
+        <Tab Title="Reports"
+             Icon="icon_report.svg"
+             Route="reports">
+            <ShellContent ContentTemplate="{DataTemplate pages:ReportPage}" />
+        </Tab>
+        
+    </TabBar>
+
+    <MenuItem Text="Show map"
+              x:Name="MapMenuItem"
+              Clicked="OnMapItem_Clicked"
+              IconImageSource="icon_map.svg"/>
+    
+
+    <MenuItem IconImageSource="icon_palette.png"
+	          x:Name="ThemeMenuItem"
+	          Clicked="ThemeMenuItem_Clicked"/>
+    
+    <MenuItem Text="Logout"
+              x:Name="LogoutMenuItem"
+              Clicked="OnLogoutItem_Clicked"
+              IconImageSource="icon_logout.png"/>
+
+</Shell>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiStockApp.Views.InputPage"
+             xmlns:controls="clr-namespace:MauiStockApp.Controls"
+             Title="Select and count a product">
+
+    <Grid Padding="20"
+          RowDefinitions="1*, 3*, 4*, 1*">
+
+        <Border StrokeShape="RoundRectangle 5"
+                Stroke="{StaticResource Primary}"
+                BackgroundColor="Transparent"
+                StrokeThickness="{OnPlatform WinUI=1, Default=0}">
+            <SearchBar
+                x:Name="searchBar"
+                Grid.Row="0"
+                SearchCommand="{Binding SearchProductsCommand}"
+                SearchCommandParameter="x:Reference Name=searchBar"
+                Text="{Binding SearchTerm}"
+                Placeholder="Search for a product..."/>
+        </Border>
+
+
+        <CollectionView Grid.Row="1"
+                ItemsSource="{Binding SearchResults}"
+                SelectedItem="{Binding SelectedProduct}"
+                SelectionMode="Single"
+                Margin="20,0">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10"
+                           Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Style="{StaticResource ProductSelector}">
+                        <Label Text="{Binding Name}"
+                       TextColor="Black"
+                       FontSize="Large"/>
+                        <Label Text="{Binding ManufacturerName}"
+                       TextColor="Gray"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <ActivityIndicator Grid.Row="1"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   IsRunning="True"
+                   IsVisible="{Binding IsLoading}"/>
+
+        <controls:MildredStepper Grid.Row="2"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Value="{Binding Count, Mode=TwoWay}">
+            <controls:MildredStepper.Triggers>
+                <DataTrigger TargetType="controls:MildredStepper"
+                     Binding="{Binding SelectedProduct, TargetNullValue=''}"
+                     Value="">
+                    <Setter Property="IsEnabled"
+                    Value="False" />
+                </DataTrigger>
+            </controls:MildredStepper.Triggers>
+        </controls:MildredStepper>
+
+
+        <!-- in Chapter 11 replaced with the MildredStepper control
+        <Label Text="{Binding Count}"
+               Style="{StaticResource CountLabelStyle}"
+       FontSize="Header"
+       HorizontalOptions="Center"
+       VerticalOptions="Center"
+       Grid.Row="2"/>
+
+        <Stepper Grid.Row="3"
+         HorizontalOptions="Center"
+         VerticalOptions="Center"
+         Value="{Binding Count}">
+            <Stepper.Triggers>
+                <DataTrigger TargetType="Stepper"
+                 Binding="{Binding SelectedProduct, TargetNullValue=''}"
+                 Value="">
+                    <Setter Property="IsEnabled"
+                Value="False" />
+                </DataTrigger>
+            </Stepper.Triggers>
+        </Stepper>-->
+
+        <Button Grid.Row="4"
+        Text="Add count"
+        Command="{Binding AddCountCommand}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                     Binding="{Binding Count}"
+                     Value="0">
+                    <Setter Property="IsEnabled"
+                        Value="False"/>
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+
+    </Grid>
+
+</ContentPage>
